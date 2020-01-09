@@ -7,7 +7,17 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-
+Requirements (laravel)
+------------ 
+- PHP >= 7.2.0
+- BCMath PHP Extension
+- Ctype PHP Extension
+- JSON PHP Extension
+- Mbstring PHP Extension
+- OpenSSL PHP Extension
+- PDO PHP Extension
+- Tokenizer PHP Extension
+- XML PHP Extension
 
 <p align="center">
 <a href="https://laravel-admin.org/">
@@ -39,6 +49,11 @@
     </a> 
 </div>
 
+Requirements (Laravel Admin)
+------------ 
+ - PHP >= 7.0.0 <br>
+ - Laravel >= 5.5.0
+ - Fileinfo PHP Extension
 
 
 
