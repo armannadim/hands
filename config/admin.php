@@ -192,6 +192,10 @@ return [
         'menu_table' => 'admin_menu',
         'menu_model' => Encore\Admin\Auth\Database\Menu::class,
 
+        // AppConfig table and model.
+        'appconfig_table' => 'admin_appConfig',
+        'appconfig_model' => "",
+
         // Pivot table for table above.
         'operation_log_table'    => 'admin_operation_log',
         'user_permissions_table' => 'admin_user_permissions',
