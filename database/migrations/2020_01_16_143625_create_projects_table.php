@@ -25,12 +25,15 @@ class CreateProjectsTable extends Migration
         });
 
         Schema::table('donations', function (Blueprint $table) {
-            $table->unsignedBigInteger('parent_project_id');
-            $table->foreign('parent_project_id')->references('id')->on('projects');
-
             $table->unsignedBigInteger('donor_id');
             $table->foreign('donor_id')->references('id')->on('donors');
 
+        });
+
+
+        Schema::table('projects', function (Blueprint $table) {
+            $table->unsignedBigInteger('parent_project_id');
+            $table->foreign('parent_project_id')->references('id')->on('projects');
         });
     }
 
