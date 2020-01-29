@@ -12,5 +12,9 @@ Route::group([
 
     $router->get('/', 'HomeController@index')->name('admin.home');
     $router->resource('beneficiary', BeneficiaryController::class);
+    $router->resource('donation', DonationController::class);
+    $router->resource('donor', DonorController::class);
+    $router->resource('project', ProjectController::class);
+    $router->resource('expense', ExpenseController::class);
 
 });
