@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Expense;
+use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Column;
@@ -12,7 +13,7 @@ use Encore\Admin\Show;
 use Encore\Admin\Form;
 use App\Http\Controllers\Controller;
 
-class ExpenseController extends Controller
+class ExpenseController extends AdminController
 {
     use HasResourceActions;
     protected $title = 'Expenses';

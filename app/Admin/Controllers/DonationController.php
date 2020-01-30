@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Donation;
+use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Column;
@@ -13,7 +14,7 @@ use Encore\Admin\Form;
 use App\Http\Controllers\Controller;
 
 
-class DonationController extends Controller
+class DonationController extends AdminController
 {
     use HasResourceActions;
     protected $title = 'Beneficiary';
