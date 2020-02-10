@@ -31,7 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  */
-class Beneficiary extends Model
+class Beneficiary extends AdminModel
 {
     /**
      * The "type" of the auto-incrementing ID.

@@ -136,12 +136,13 @@ class ProjectController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Project::findOrFail($id));
+        $model = new Project();
+        $show = new Show($model->findOrFail($id));
 
-        $show->field('id', __('ID'));
-        $show->field('name', __('Name'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+        $columns = $model->getTableColumns();
+        foreach ($columns as $column) {
+            $show->field($column, __($column));
+        }
 
         return $show;
     }
@@ -153,13 +154,18 @@ class ProjectController extends AdminController
      */
     protected function form()
     {
-
-        $form = new Form(new Project);
-
+        $model = new Project();
+        $form = new Form($model);
         $form->display('id', __('ID'));
-        $form->text('name', __('Name'));
+        $columns = $model->getTableColumns();
+        foreach ($columns as $column) {
+            if (!in_array($column, ['id', 'created_at', 'updated_at', 'deleted_at'])) {
+                $form->text($column, __($column));
+            }
+        }
         $form->display('created_at', __('Created At'));
         $form->display('updated_at', __('Updated At'));
+        $form->display('deleted_at', __('Deleted At'));
 
         return $form;
     }

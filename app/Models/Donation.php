@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
@@ -14,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $parent_project_id
  * @property integer $donor_id
  */
-class Donation extends Model
+class Donation extends AdminModel
 {
     /**
      * The "type" of the auto-incrementing ID.

@@ -41,14 +41,14 @@ class BeneficiaryController extends AdminController
         return $content
             ->title($this->title())
             ->description('Description...')
-            ->body($this->grid())
-            ->row(function (Row $row) {
+            ->body($this->grid());
+        /*->row(function (Row $row) {
 
-                $row->column(6, function (Column $column) {
-                    $column->append(Beneficiary::all());
-                });
-
+            $row->column(6, function (Column $column) {
+                $column->append(Beneficiary::all());
             });
+
+        });*/
     }
 
     /**
@@ -144,12 +144,13 @@ class BeneficiaryController extends AdminController
      */
     protected function detail($id)
     {
-        $show = new Show(Beneficiary::findOrFail($id));
+        $model = new Beneficiary();
+        $show = new Show($model->findOrFail($id));
 
-        $show->field('id', __('ID'));
-        $show->field('name', __('Name'));
-        $show->field('created_at', __('Created at'));
-        $show->field('updated_at', __('Updated at'));
+        $columns = $model->getTableColumns();
+        foreach ($columns as $column) {
+            $show->field($column, __($column));
+        }
 
         return $show;
     }
@@ -162,12 +163,18 @@ class BeneficiaryController extends AdminController
     protected function form()
     {
 
-        $form = new Form(new Beneficiary);
-
+        $model = new Beneficiary;
+        $form = new Form($model);
         $form->display('id', __('ID'));
-        $form->text('name', __('Name'));
+        $columns = $model->getTableColumns();
+        foreach ($columns as $column) {
+            if (!in_array($column, ['id', 'created_at', 'updated_at', 'deleted_at'])) {
+                $form->text($column, __($column));
+            }
+        }
         $form->display('created_at', __('Created At'));
         $form->display('updated_at', __('Updated At'));
+        $form->display('deleted_at', __('Deleted At'));
 
         return $form;
     }
