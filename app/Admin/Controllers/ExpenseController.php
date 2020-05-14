@@ -40,14 +40,13 @@ class ExpenseController extends AdminController
         return $content
             ->title($this->title())
             ->description('Description...')
-            ->body($this->grid())
+            ->body($this->grid());/*
             ->row(function (Row $row) {
-
                 $row->column(6, function (Column $column) {
-                    $column->append(Expense::all());
+                    $column->append(Project::all());
                 });
+            });*/
 
-            });
     }
 
     /**
@@ -108,14 +107,18 @@ class ExpenseController extends AdminController
         $grid->id('ID')->sortable();
 
         // The second column shows the title field, because the title field name and the Grid object's title method conflict, so use Grid's column () method instead
-        $grid->column('name');
-        $grid->column('first_name');
-        $grid->column('last_name');
-        $grid->email()->display(function ($email) {
-            return "<a href='mailto:$email'>" . $email . "</a>";
+        $grid->column('description');
+        $grid->column('amount');
+        $grid->column('expense_date');
+        $grid->column('donatedBy', 'Donated by')->display(function(){
+            return $this->donatedBy->name;
         });
-        $grid->column('phone');
-
+        $grid->column('beneficiary', 'Beneficiary')->display(function(){
+            return $this->beneficiary->name;
+        });
+        $grid->column('project', 'Project')->display(function(){
+            return $this->project->name;
+        });
         // The following shows the columns for the three time fields
         $grid->created_at()->display(function ($created_at) {
             return date('d-m-Y', strtotime($created_at));;

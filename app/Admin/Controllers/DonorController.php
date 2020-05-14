@@ -41,14 +41,12 @@ class DonorController extends AdminController
         return $content
             ->title($this->title())
             ->description('Description...')
-            ->body($this->grid())
+            ->body($this->grid());/*
             ->row(function (Row $row) {
-
                 $row->column(6, function (Column $column) {
-                    $column->append(Donor::all());
+                    $column->append(Project::all());
                 });
-
-            });
+            });*/
     }
 
     /**
