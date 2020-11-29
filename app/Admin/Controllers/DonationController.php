@@ -2,7 +2,9 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Beneficiary;
 use App\Models\Donation;
+use App\Models\Donor;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Grid;
@@ -111,11 +113,11 @@ class DonationController extends AdminController
         $grid->column('donation_date')->display(function ($created_at) {
             return date('d-m-Y', strtotime($created_at));
         });
-        $grid->column('beneficiary', 'Beneficiary')->display(function(){
+        $grid->column('beneficiary', 'Beneficiary')->display(function () {
             return $this->beneficiary->name;
         });
-        $grid->column('donor', 'Donor')->display(function(){
-           return $this->donor->name;
+        $grid->column('donor', 'Donor')->display(function () {
+            return $this->donor->name;
         });
 
 
@@ -158,16 +160,25 @@ class DonationController extends AdminController
 
         $model = new Donation;
         $form = new Form($model);
-        $form->display('id', __('ID'));
-        $columns = $model->getTableColumns();
-        foreach ($columns as $column) {
-            if (!in_array($column, ['id', 'created_at', 'updated_at', 'deleted_at'])) {
-                $form->text($column, __($column));
-            }
-        }
-        $form->display('created_at', __('Created At'));
-        $form->display('updated_at', __('Updated At'));
-        $form->display('deleted_at', __('Deleted At'));
+
+        $form->column(1/2, function ($form){
+            $form->date("donation_date", "Donation Date");
+            $form->select("donation_receiver", "Beneficiary")->options(function () {
+                $beneficiary = Beneficiary::get()->pluck('name', 'id')->toarray();
+                $beneficiary = array_merge(['0' => 'Select Beneficiary'], $beneficiary );
+                return $beneficiary;
+            });
+        });
+        $form->column(1/2, function ($form){
+            $form->text('amount', "Amount")->pattern('[0-9]{8}');
+            $form->select("donor_id", "Donor")->options(function () {
+                $donor = Donor::get()->pluck('name', 'id')->toarray();
+                $donor = array_merge(['0' => 'Select Donor'], $donor );
+                return $donor;
+            });
+        });
+
+
 
         return $form;
     }

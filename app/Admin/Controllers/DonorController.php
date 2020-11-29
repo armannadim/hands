@@ -167,12 +167,35 @@ class DonorController extends AdminController
         $columns = $model->getTableColumns();
         foreach ($columns as $column) {
             if (!in_array($column, ['id', 'created_at', 'updated_at', 'deleted_at'])) {
-                $form->text($column, __($column));
+                $states = [
+                    'Yes'  => ['value' => 1, 'text' => 'Yes', 'color' => 'success'],
+                    'No' => ['value' => 0, 'text' => 'No', 'color' => 'danger'],
+                ];
+
+                if($column == 'send_future_mail'){
+                    $form->switch($column, "Send Future Mail")->states($states)->default(1);
+                }elseif ($column == 'preferred_contact_medium'){
+                    $form->radio($column, 'Preferred contact medium')->options([1 => 'Email', 2=>'Phone call', 3=>'SMS']);
+                }elseif($column == 'publish_name'){
+                    $form->switch($column, "Publish Donor Name?")->states($states)->default(1);
+                }elseif ($column == 'id_type'){
+                    $form->radio($column, 'ID Type')
+                        ->options(
+                            [
+                                0 => 'Select ID Type',
+                                1 => 'Passport',
+                                2 =>'Identity'
+                            ]);
+                }elseif($column == 'photo'){
+                    $form->file($column, 'Photo');
+                }else{
+                    $form->text($column, __($column));
+                }
             }
         }
         $form->display('created_at', __('Created At'));
-        $form->display('updated_at', __('Updated At'));
-        $form->display('deleted_at', __('Deleted At'));
+        $form->display('updated_at', __('Last Modification'));
+        //$form->display('deleted_at', __('Deleted At'));
 
         return $form;
     }
